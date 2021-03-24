@@ -1,3 +1,5 @@
+import { ajax } from "discourse/lib/ajax";
+
 export default {
   name: "layouts-event-list",
 
@@ -14,5 +16,16 @@ export default {
       layoutsError = error;
       console.warn(layoutsError);
     }
+
+    // if (layoutsError) return;
+
+    // ajax(`/discourse-post-event/events.json`).then((events) => {
+    //   console.log(events);
+    //   this.setProperties({ events });
+    // });
+
+    ajax(`/discourse-post-event/events.json`).then(function (result) {
+      console.log(result);
+    });
   },
 };
