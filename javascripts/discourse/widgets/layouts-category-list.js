@@ -34,6 +34,7 @@ ajax(`/discourse-post-event/events.json`).then((eventList) => {
     for (let invited of inviteeList) {
       console.log(`${invited.user.name} is ${invited.status}.`);
     }
+    // test
   }
 });
 
