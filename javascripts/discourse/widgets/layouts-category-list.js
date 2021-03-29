@@ -30,37 +30,11 @@ ajax(`/discourse-post-event/events.json`).then((eventList) => {
     console.log(`Event ID: ${event.post.url}`);
 
     let inviteeList = event.sample_invitees;
-    // console.log(inviteeList);
 
     for (let invited of inviteeList) {
       console.log(`${invited.user.name} is ${invited.status}.`);
-      // console.log(invited);
     }
   }
-
-  // array.forEach((element) => {});
-
-  // for (let i = 0; i < eventList.events.length; i++) {
-  //   let event = eventList.events[i];
-  //   console.log("Event + " + event.id + " Below:");
-  //   console.log("Title: " + event.name);
-  //   console.log("Start Date: " + event.starts_at);
-  //   console.log("End Date: " + event.ends_at);
-  //   console.log("Post URL: " + event.post.url);
-
-  //   // ? watching_invitee or sample_invitee
-  //   // difference is watching_invitee is only showing one
-
-  //   console.log(event.sample_invitee.length);
-  //   // TODO create new user for testing purposes.
-  //   // for (let j = 0; j < event.sample_invitee.length; j++) {
-  //   //   let invitee = event.sample_invitee[j];
-  //   //   console.log("reached");
-  //   //   console.log(invitee);
-  //   //   // if watching invitee status = going then:
-  //   //   console.log("Invited: " + invitee.user.name);
-  //   // }
-  // }
 });
 
 // !
