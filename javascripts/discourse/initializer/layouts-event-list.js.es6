@@ -17,15 +17,20 @@ export default {
       console.warn(layoutsError);
     }
 
-    // if (layoutsError) return;
+    if (layoutsError) return;
 
-    // ajax(`/discourse-post-event/events.json`).then((events) => {
-    //   console.log(events);
-    //   this.setProperties({ events });
-    // });
+    let events = [];
+    let hello = "Hello World!";
 
-    ajax(`/discourse-post-event/events.json`).then(function (result) {
-      console.log(result);
+    ajax(`/discourse-post-event/events.json`).then((eventList) => {
+      events.push(eventList.events);
     });
+
+    let props = {
+      events,
+      hello,
+    };
+
+    layouts.addSidebarProps(props);
   },
 };

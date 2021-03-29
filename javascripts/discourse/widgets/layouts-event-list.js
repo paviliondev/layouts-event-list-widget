@@ -16,37 +16,50 @@ try {
 }
 
 // ! TEMP for testing, remove later/move to initializer:
-
 ajax(`/discourse-post-event/events.json`).then((eventList) => {
-  // Log entire events object
+  // console.log(events);
+
   let events = eventList.events;
 
   for (let event of events) {
     console.log(event);
     console.log(`Event ID: ${event.id}`);
-    console.log(`Event ID: ${event.name}`);
-    console.log(`Event ID: ${event.starts_at}`);
-    console.log(`Event ID: ${event.ends_at}`);
-    console.log(`Event ID: ${event.post.url}`);
+    console.log(`Event Name: ${event.name}`);
+    console.log(`Event Duration: ${event.starts_at} - ${event.ends_at}`);
+    console.log(`Event Topic URL: ${event.post.url}`);
 
     let inviteeList = event.sample_invitees;
-
     for (let invited of inviteeList) {
       console.log(`${invited.user.name} is ${invited.status}.`);
     }
-    // test
   }
 });
-
 // !
 
 export default layouts.createLayoutsWidget("event-list", {
-  html() {
-    return h("h3.", "Upcoming Events");
+  getHello() {
+    let { hello } = this.attrs;
+
+    if (!hello) return "Upcoming Events";
+
+    return hello;
+  },
+
+  html(attrs) {
+    // let { hello } = attrs;
+    let myHello = this.getHello();
+
+    return h("h3.event-list-title", myHello);
+    // return h("h3.event-list-title", "Upcoming Events");
   },
 });
 
 createWidget("layouts-event-link", {
   tagName: "li",
   buildKey: (attrs) => `layouts-event-link-${attrs.event.id}`,
+
+  html(attrs) {
+    let contents = [];
+    // contents.push(h("div.event-name", events[0]));
+  },
 });
