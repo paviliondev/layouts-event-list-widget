@@ -1,3 +1,4 @@
+import DiscourseURL from "discourse/lib/url";
 import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 
@@ -16,31 +17,55 @@ try {
 
 export default layouts.createLayoutsWidget("event-list", {
   html(attrs) {
-    let { eventList } = this.attrs;
+    let { events } = this.attrs;
+    let contents = [];
 
-    if (!eventList) return console.warn("There are no events");
+    if (events == null || events == undefined) return;
 
-    // console.log(JSON.stringify(events));
-    // console.log(typeof events);
+    // if discourse setting allows titlebar:
+    console.log(events);
 
-    console.log(eventList);
-    let content = [];
-    for (let events of eventList.events) {
-      content.push(h("p", events.name));
+    // let contents = [];
+    let eventListItems = [];
+    let eventList = [];
+    eventList.push(h("h2.layouts-event-title", "Upcoming Events"));
+    for (let event of events) {
+      eventListItems.push(this.attach("layouts-event-link", event));
     }
+    eventList.push(h("ul.events-list", eventListItems));
 
-    return content;
-
-    return h("h3.event-list-title", "Upcoming Events");
+    return eventList;
   },
 });
 
 createWidget("layouts-event-link", {
-  tagName: "li",
-  buildKey: (attrs) => `layouts-event-link-${attrs.event.id}`,
+  tagName: "li.event-item",
+  buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
   html(attrs) {
-    // let contents = [];
-    // contents.push(h("div.event-name", events[0]));
+    let contents = [];
+    // Event Title
+    contents.push(h("h3", attrs.name));
+    contents.push(h("p", attrs.starts_at));
+
+    if (settings.toggle_invitees) {
+      for (let invitees of attrs.sample_invitees) {
+        if (invitees.status === "going") {
+          contents.push(
+            h("img.event-invited-user", {
+              attributes: {
+                src: invitees.user.avatar_template.replace("{size}", "40"),
+              },
+            })
+          );
+          // contents.push(h("p", invitees.user.name));
+        }
+      }
+    }
+    return contents;
+  },
+
+  click() {
+    DiscourseURL.routeTo(this.attrs.post.url);
   },
 });
