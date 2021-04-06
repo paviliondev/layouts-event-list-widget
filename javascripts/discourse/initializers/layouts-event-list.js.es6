@@ -19,18 +19,26 @@ export default {
 
     if (layoutsError) return;
 
-    let events = [];
-    let hello = "Hello World!";
+    // let events = [];
 
     ajax(`/discourse-post-event/events.json`).then((eventList) => {
-      events.push(eventList.events);
+      // let eventItems = eventList.events;
+
+      // for (let currentEvent of eventItems) {
+      //   events.push(currentEvent);
+      // }
+
+      let props = {
+        eventList,
+      };
+
+      layouts.addSidebarProps(props);
     });
 
-    let props = {
-      events,
-      hello,
-    };
+    // let props = {
+    //   events,
+    // };
 
-    layouts.addSidebarProps(props);
+    // layouts.addSidebarProps(props);
   },
 };
