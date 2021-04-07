@@ -19,19 +19,17 @@ try {
 
 export default layouts.createLayoutsWidget("event-list", {
   html(attrs) {
-    let { events } = this.attrs;
-    let contents = [];
+    const { events } = attrs;
 
     if (events == null || events == undefined) return;
 
-    // if discourse setting allows titlebar:
-    console.log(events);
+    console.log(events); // TODO remove for production
 
-    // let contents = [];
-    let eventListItems = [];
-    let eventList = [];
+    const eventListItems = [];
+    const eventList = [];
     eventList.push(h("h2.layouts-event-title", "Upcoming Events"));
 
+    // Check if number of events is less than maximum defined in settings
     events.forEach((event, index) => {
       if (index + 1 <= settings.max_events) {
         eventListItems.push(this.attach("layouts-event-link", event));
@@ -48,38 +46,50 @@ createWidget("layouts-event-link", {
   tagName: "li.event-item",
   buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
-  html(attrs) {
-    let contents = [];
+  getEventTitle(event) {
+    const html = h("h3", event.name);
+    return html;
+  },
 
-    // Event Title
-    contents.push(h("h3", attrs.name));
-    let formattedDate = new Date(attrs.starts_at);
-    let date = h("p.layouts-event-date", longDate(formattedDate));
-    // contents.push(h("div.event-details", date));
+  getEventDate(event) {
+    const formattedDate = new Date(event.starts_at);
+    const dateInfo = h("p.layouts-event-date", longDate(formattedDate));
     // TODO how to make calendar icon appear without adding svg icon subset to settings?
-    // contents.push(date);
-    contents.push(h("div.layouts-event-details", [iconNode("calendar"), date]));
-    // contents.push(h("div", iconNode("lock"), h("p", longDate(formattedDate))));
+    const html = h("div.layouts-event-details", [
+      iconNode("calendar"),
+      dateInfo,
+    ]);
 
-    if (!settings.toggle_invitees) return contents;
-    let attendees = [];
-    for (let invitees of attrs.sample_invitees) {
-      let eventInviteeAvatar = h("img.event-invited-user", {
+    return html;
+  },
+
+  checkInviteeStatus(invitee) {
+    if (invitee.status == "going") {
+      return iconNode("check", { class: "invitee-going" });
+    }
+
+    if (invitee.status == "not_going") {
+      return iconNode("times", { class: "invitee-not-going" });
+    }
+
+    if (invitee.status == "interested") {
+      return iconNode("star", { class: "invitee-interested" });
+    }
+  },
+
+  getEventAttendees(event) {
+    const attendees = [];
+
+    for (let invitees of event.sample_invitees) {
+      const eventInviteeAvatar = h("img.event-invited-user", {
         attributes: {
           src: invitees.user.avatar_template.replace("{size}", "40"),
         },
       });
 
-      let inviteeStatus;
-      if (invitees.status == "going") {
-        inviteeStatus = iconNode("check", { class: "invitee-going" });
-      } else if (invitees.status == "not_going") {
-        inviteeStatus = iconNode("times", { class: "invitee-not-going" });
-      } else {
-        inviteeStatus = iconNode("star", { class: "invitee-interested" });
-      }
+      const inviteeStatus = this.checkInviteeStatus(invitees);
 
-      let eventAttendee = h("li.event-attendee", [
+      const eventAttendee = h("li.event-attendee", [
         eventInviteeAvatar,
         inviteeStatus,
       ]);
@@ -87,7 +97,20 @@ createWidget("layouts-event-link", {
       attendees.push(eventAttendee);
     }
 
-    contents.push(h("ul.attendees", attendees));
+    const html = h("ul.attendees", attendees);
+
+    return html;
+  },
+
+  html(attrs) {
+    const contents = [];
+
+    contents.push(this.getEventTitle(attrs));
+    contents.push(this.getEventDate(attrs));
+
+    if (!settings.toggle_invitees) return contents;
+
+    contents.push(this.getEventAttendees(attrs));
     return contents;
   },
 

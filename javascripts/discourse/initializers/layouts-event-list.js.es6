@@ -20,8 +20,8 @@ export default {
     if (layoutsError) return;
 
     ajax(`/discourse-post-event/events.json`).then((eventList) => {
-      let events = eventList.events;
-      let props = {
+      const events = eventList.events;
+      const props = {
         events,
       };
       layouts.addSidebarProps(props);
