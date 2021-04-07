@@ -4,6 +4,57 @@
         text-align: center;
     }
 
+    .layouts-event-details {
+        svg, p {
+            display: inline;
+        }
+
+        svg {
+            margin-right: 0.25rem;
+        }
+    }
+
+    .attendees {
+        list-style: none;
+        margin: 0;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 1rem 0;
+
+        .event-attendee {
+            position: relative;
+            padding: 0.15rem;
+            img {
+                width: 35px;
+            }
+            svg {
+                padding: 0.2rem;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                background: var(--secondary, #fff);
+                border-radius: 50%;
+                height: 12px;
+                width: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--primary-medium, #919191);
+                border: 1px solid var(--primary-low, #e9e9e9);
+            }
+            .invitee-going {
+                color: var(--success, #090);
+            }
+            .invitee-not-going {
+                color: var(--danger, #dd3e1d);
+            }
+            .invitee-interested {
+                color: #dd8e1d;
+
+            }
+        }
+    }
+
     ul.events-list {
         list-style: none;
         margin: 0;
@@ -17,8 +68,8 @@
 
     .event-item {
         cursor: pointer;
-        padding: 1rem 0.5rem;
-        margin: 1rem 0;
+        padding: 0.15rem 0.5rem;
+        margin: 0.5rem 0;
         &:not(:last-child) {
             border-bottom: 1px solid rgb(222, 222, 222);
         }

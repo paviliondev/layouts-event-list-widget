@@ -10,3 +10,9 @@ max_events:
   max: 10
   description:
     en: "Set the maximum number of events to appear in the layout"
+svg_icons:
+  default: "calendar|check|star|times"
+  type: "list"
+  list_type: "compact"
+  description:
+    en: "The required SVG icons the widget needs to display"
