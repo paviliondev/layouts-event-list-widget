@@ -27,6 +27,11 @@ function compareValues(key, order = "asc") {
   };
 }
 
+function htmlDecode(input) {
+  let doc = new DOMParser().parseFromString(input, "text/html");
+  return doc.documentElement.textContent;
+}
+
 export default layouts.createLayoutsWidget("event-list", {
   html(attrs) {
     const { events } = attrs;
@@ -70,7 +75,9 @@ createWidget("layouts-event-link", {
   buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
   getEventTitle(event) {
-    const html = h("h3.l-event-item-title", event.name);
+    const decodedEventName = htmlDecode(event.name); // needed for html entities in array
+
+    const html = h("h3.l-event-item-title", decodedEventName);
     return html;
   },
 
