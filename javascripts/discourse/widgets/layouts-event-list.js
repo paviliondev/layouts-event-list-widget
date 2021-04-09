@@ -39,7 +39,7 @@ export default layouts.createLayoutsWidget("event-list", {
     const eventList = [];
     eventList.push(
       h(
-        "a.layouts-event-title",
+        "a.l-event-header",
         {
           attributes: {
             href: "upcoming-events",
@@ -59,18 +59,18 @@ export default layouts.createLayoutsWidget("event-list", {
       }
     });
 
-    eventList.push(h("ul.events-list", eventListItems));
+    eventList.push(h("ul.l-event-items", eventListItems));
 
     return eventList;
   },
 });
 
 createWidget("layouts-event-link", {
-  tagName: `li.event-item`,
+  tagName: `li.l-event-item`,
   buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
   getEventTitle(event) {
-    const html = h("h3", event.name);
+    const html = h("h3.l-event-item-title", event.name);
     return html;
   },
 
@@ -79,7 +79,7 @@ createWidget("layouts-event-link", {
     const eventDateOnly = event.starts_at.substr(0, 10);
 
     if (eventDateOnly == currentDate) {
-      this.tagName = "li.event-item.event-highlighted";
+      this.tagName = "li.l-event-item.l-event-item-highlighted";
     }
 
     return null;
@@ -87,54 +87,51 @@ createWidget("layouts-event-link", {
 
   getEventDate(event) {
     const formattedDate = new Date(event.starts_at);
-    const dateInfo = h("p.layouts-event-date", longDate(formattedDate));
+    const dateInfo = h("p.l-event-date", longDate(formattedDate));
     this.getCurrentDayEvent(event);
     // TODO how to make calendar icon appear without adding svg icon subset to settings?
-    const html = h("div.layouts-event-details", [
-      iconNode("calendar"),
-      dateInfo,
-    ]);
+    const html = h("div.l-event-details", [iconNode("calendar"), dateInfo]);
 
     return html;
   },
 
   checkInviteeStatus(invitee) {
     if (invitee.status == "going") {
-      return iconNode("check", { class: "invitee-going" });
+      return iconNode("check", { class: "l-event-invitee-going" });
     }
 
     if (invitee.status == "not_going") {
-      return iconNode("times", { class: "invitee-not-going" });
+      return iconNode("times", { class: "l-event-invitee-not-going" });
     }
 
     if (invitee.status == "interested") {
-      return iconNode("star", { class: "invitee-interested" });
+      return iconNode("star", { class: "l-event-invitee-interested" });
     }
 
-    return iconNode("question", { class: "invitee-unknown" });
+    return iconNode("question", { class: "l-event-invitee-unknown" });
   },
 
-  getEventAttendees(event) {
-    const attendees = [];
+  getEventInvitees(event) {
+    const invitees = [];
 
-    for (let invitees of event.sample_invitees) {
-      const eventInviteeAvatar = h("img.event-invited-user", {
+    for (let invitee of event.sample_invitees) {
+      const eventInviteeAvatar = h("img.l-event-invitee-avatar", {
         attributes: {
-          src: invitees.user.avatar_template.replace("{size}", "40"),
+          src: invitee.user.avatar_template.replace("{size}", "40"),
         },
       });
 
-      const inviteeStatus = this.checkInviteeStatus(invitees);
+      const inviteeStatus = this.checkInviteeStatus(invitee);
 
-      const eventAttendee = h("li.event-attendee", [
+      const eventInvitee = h("li.l-event-invitee", [
         eventInviteeAvatar,
         inviteeStatus,
       ]);
 
-      attendees.push(eventAttendee);
+      invitees.push(eventInvitee);
     }
 
-    const html = h("ul.attendees", attendees);
+    const html = h("ul.l-event-invitees", invitees);
 
     return html;
   },
@@ -146,7 +143,7 @@ createWidget("layouts-event-link", {
     contents.push(this.getEventDate(attrs));
     if (settings.toggle_invitees == "Disabled") return contents;
 
-    contents.push(this.getEventAttendees(attrs));
+    contents.push(this.getEventInvitees(attrs));
     return contents;
   },
 

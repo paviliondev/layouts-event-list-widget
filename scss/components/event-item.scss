@@ -1,0 +1,35 @@
+.layouts-event-list {
+    .l-event-items {
+        list-style: none;
+        margin: 0;
+    }
+
+    .l-event-item {
+        margin: var(--l-event-item-margin);
+        padding: var(--l-event-item-padding);
+        border-radius: var(--l-event-item-border-radius);
+        cursor: pointer;
+        animation: fade-in .3s ease-in-out;
+        transition: background-color 0.25s ease;
+
+        &:hover {
+            background-color: #ececec;
+            .l-event-invitees {
+                display: flex;
+            }
+        }
+
+        &-title {
+            font-size: 1rem;
+        }
+
+        @if $highlight_today == 'true' {
+            &-highlighted {
+                background: var(--highlight-low);
+                .l-event-invitees {
+                    display: flex;
+                }
+            }
+        }
+    }
+}

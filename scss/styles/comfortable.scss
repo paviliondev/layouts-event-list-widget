@@ -1,0 +1,7 @@
+@if $style == 'Comfortable' {
+    .l-event-item {
+        --l-event-item-padding: 1rem;
+        --l-event-item-margin: 1rem;
+        --l-event-item-border-radius: 5px;
+    }
+}
