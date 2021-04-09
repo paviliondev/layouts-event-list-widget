@@ -33,6 +33,7 @@ theme:
   choices:
     - "Default"
     - "Modern"
+    - "Minimal"
   default: "Default"
   description:
     en: "Select the layout's theme style"

@@ -1,0 +1,54 @@
+@if $theme == 'Minimal' {
+    .layouts-event-list {
+
+
+        .l-event-details {
+            p {
+                font-weight: 100;
+            }
+            svg {
+               display: none;
+            }
+        }
+    
+            a.l-event-header {
+                // text-transform: uppercase;
+                font-weight: 500;
+                padding-bottom: 5px;
+                border-bottom: 1px solid lightgray;
+            }
+    
+            .l-event-item {
+                &-title {
+                    font-weight: 400;
+                }
+                &-highlighted {
+                    background: #f0f0f0;
+                    border-top: 1px solid lightgray;
+                    border-bottom: 1px solid lightgray;
+                }
+            }
+
+            .l-event-invitee {
+                position: relative;
+                padding: 0.05rem;
+                svg {
+                    right: 0;
+                    bottom: 0;
+                    background: transparent;
+                    border-radius: 0px;
+                    border: none;
+                    height: 15px;
+                    width: 15px;
+                }
+            }
+
+            .l-event-invitee-avatar {
+                border-radius: 5px;
+                &:not(:last-child) {
+                    margin-right: 1px;
+                }
+            }            
+            
+        }
+    }
