@@ -17,6 +17,15 @@ try {
   console.warn(error);
 }
 
+function compareValues(key, order = "asc") {
+  return function innerSort(a, b) {
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) return 0;
+    const comparison = a[key].localeCompare(b[key]);
+
+    return order === "desc" ? comparison * -1 : comparison;
+  };
+}
+
 export default layouts.createLayoutsWidget("event-list", {
   html(attrs) {
     const { events } = attrs;
@@ -29,9 +38,12 @@ export default layouts.createLayoutsWidget("event-list", {
     const eventList = [];
     eventList.push(h("h2.layouts-event-title", "Upcoming Events"));
 
-    // Check if number of events is less than maximum defined in settings
-    events.forEach((event, index) => {
+    // sort event in ascending from start date
+    const sortedEvent = events.sort(compareValues("starts_at", "asc"));
+
+    sortedEvent.forEach((event, index) => {
       if (index + 1 <= settings.max_events) {
+        console.log(event.starts_at);
         eventListItems.push(this.attach("layouts-event-link", event));
       }
     });
