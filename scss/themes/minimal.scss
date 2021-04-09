@@ -22,10 +22,14 @@
                 &-title {
                     font-weight: 400;
                 }
-                &-highlighted {
-                    background: #f0f0f0;
-                    border-top: 1px solid var(--primary-low);
-                    border-bottom: 1px solid var(--primary-low);
+
+                @if $highlight_today == 'true' {
+
+                    &-highlighted {
+                        background: #f0f0f0;
+                        border-top: 1px solid var(--primary-low);
+                        border-bottom: 1px solid var(--primary-low);
+                    }
                 }
             }
 
