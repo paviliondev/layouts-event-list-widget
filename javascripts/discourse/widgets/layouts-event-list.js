@@ -1,4 +1,5 @@
 import { longDate } from "discourse/lib/formatter";
+import DiscourseURL from "discourse/lib/url";
 import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 const { iconNode } = require("discourse-common/lib/icon-library");
@@ -36,14 +37,24 @@ export default layouts.createLayoutsWidget("event-list", {
 
     const eventListItems = [];
     const eventList = [];
-    eventList.push(h("h2.layouts-event-title", "Upcoming Events"));
+    eventList.push(
+      h(
+        "a.layouts-event-title",
+        {
+          attributes: {
+            href: "upcoming-events",
+          },
+        },
+        "Upcoming Events"
+      )
+    );
 
     // sort event in ascending from start date
     const sortedEvent = events.sort(compareValues("starts_at", "asc"));
 
     sortedEvent.forEach((event, index) => {
       if (index + 1 <= settings.max_events) {
-        console.log(event.starts_at);
+        // console.log(event.starts_at);
         eventListItems.push(this.attach("layouts-event-link", event));
       }
     });
@@ -55,7 +66,7 @@ export default layouts.createLayoutsWidget("event-list", {
 });
 
 createWidget("layouts-event-link", {
-  tagName: "li.event-item",
+  tagName: `li.event-item`,
   buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
   getEventTitle(event) {
@@ -63,9 +74,21 @@ createWidget("layouts-event-link", {
     return html;
   },
 
+  getCurrentDayEvent(event) {
+    const currentDate = new Date().toISOString().substr(0, 10);
+    const eventDateOnly = event.starts_at.substr(0, 10);
+
+    if (eventDateOnly == currentDate) {
+      this.tagName = "li.event-item.event-highlighted";
+    }
+
+    return null;
+  },
+
   getEventDate(event) {
     const formattedDate = new Date(event.starts_at);
     const dateInfo = h("p.layouts-event-date", longDate(formattedDate));
+    this.getCurrentDayEvent(event);
     // TODO how to make calendar icon appear without adding svg icon subset to settings?
     const html = h("div.layouts-event-details", [
       iconNode("calendar"),
@@ -87,6 +110,8 @@ createWidget("layouts-event-link", {
     if (invitee.status == "interested") {
       return iconNode("star", { class: "invitee-interested" });
     }
+
+    return iconNode("question", { class: "invitee-unknown" });
   },
 
   getEventAttendees(event) {
@@ -119,8 +144,7 @@ createWidget("layouts-event-link", {
 
     contents.push(this.getEventTitle(attrs));
     contents.push(this.getEventDate(attrs));
-
-    if (!settings.toggle_invitees) return contents;
+    if (settings.toggle_invitees == "Disabled") return contents;
 
     contents.push(this.getEventAttendees(attrs));
     return contents;

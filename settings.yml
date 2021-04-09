@@ -1,8 +1,12 @@
 toggle_invitees:
-  type: bool
-  default: true
+  type: enum
+  choices:
+    - "Disabled"
+    - "Show on Hover"
+    - "Always Show"
+  default: "Show on Hover"
   description:
-    en: "Show/Hide Attending Invited Users"
+    en: "Select if/how invitees will appear in the layout."
 max_events:
   type: integer
   default: 3
@@ -10,8 +14,30 @@ max_events:
   max: 10
   description:
     en: "Set the maximum number of events to appear in the layout"
+highlight_today:
+  type: bool
+  default: true
+  description:
+    en: "Highlight events occuring on the same today"
+style:
+  type: enum
+  choices:
+    - "Default"
+    - "Comfortable"
+    - "Compact"
+  default: "Default"
+  description:
+    en: "Select the layout's view style"
+theme:
+  type: enum
+  choices:
+    - "Default"
+    - "Modern"
+  default: "Default"
+  description:
+    en: "Select the layout's theme style"
 svg_icons:
-  default: "calendar|check|star|times"
+  default: "calendar|check|star|times|question"
   type: "list"
   list_type: "compact"
   description:
