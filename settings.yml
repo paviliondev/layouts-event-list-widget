@@ -34,6 +34,7 @@ theme:
     - "Default"
     - "Modern"
     - "Minimal"
+    - "Detached"
   default: "Default"
   description:
     en: "Select the layout's theme style"

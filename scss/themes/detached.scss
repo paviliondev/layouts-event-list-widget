@@ -1,0 +1,18 @@
+@if $theme == 'Detached' {
+    .layouts-event-list {
+        border: none;
+
+        a.l-event-header {
+            display: none;
+        }
+
+        .l-event-item {
+            border: 1px solid var(--primary-low);
+
+            &-highlighted {
+                border-width: 3px;
+                background-color: var(--primary-low);
+            }
+        }
+    }
+}

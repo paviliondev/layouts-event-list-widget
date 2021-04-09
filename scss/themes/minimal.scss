@@ -15,7 +15,7 @@
                 // text-transform: uppercase;
                 font-weight: 500;
                 padding-bottom: 5px;
-                border-bottom: 1px solid lightgray;
+                border-bottom: 1px solid var(--primary-low);
             }
     
             .l-event-item {
@@ -24,8 +24,8 @@
                 }
                 &-highlighted {
                     background: #f0f0f0;
-                    border-top: 1px solid lightgray;
-                    border-bottom: 1px solid lightgray;
+                    border-top: 1px solid var(--primary-low);
+                    border-bottom: 1px solid var(--primary-low);
                 }
             }
 
