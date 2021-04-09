@@ -34,16 +34,11 @@
             }
 
             .l-event-invitee {
-                position: relative;
                 padding: 0.05rem;
                 svg {
-                    right: 0;
-                    bottom: 0;
-                    background: transparent;
-                    border-radius: 0px;
+                    background: rgba(white, 0.85);
                     border: none;
-                    height: 15px;
-                    width: 15px;
+                    border-radius: 5px;
                 }
             }
 
