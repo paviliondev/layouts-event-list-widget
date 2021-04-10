@@ -28,6 +28,23 @@ There are a couple settings that you can configure to customize how the event li
 
 Select if or how invitees will appear in the layout. You can have invitees only appear on hover (default action), keep them always shown, or disable them completely. Below are some screenshots of how each type looks on the default theme.
 
-| Disabled                                                         |                               Show on Hover                               |                                                           Always Show |
-| ---------------------------------------------------------------- | :-----------------------------------------------------------------------: | --------------------------------------------------------------------: |
+| Disabled                                                         | Show on Hover                                                             | Always Show                                                           |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![Disabled Invitees](readme-screenshots/invitees/never-show.png) | ![Invitees shown on hover](readme-screenshots/invitees/show-on-hover.png) | ![Invitees always shown](readme-screenshots/invitees/always-show.png) |
+
+### Max Events
+
+Select the maximum number of upcoming events to appear in the layout. You can set any number between 1 and 10.
+
+### Style
+
+You can configure how much room the widget takes in the layout by setting the style to: `Default`, `Compact`, or `Comfortable`. Below are examples of how it would look on the default theme.
+
+| Default                                          | Compact                                          | Comfortable                                              |
+| ------------------------------------------------ | ------------------------------------------------ | -------------------------------------------------------- |
+| ![Default](readme-screenshots/style/default.png) | ![Compact](readme-screenshots/style/compact.png) | ![Comfortable](readme-screenshots/style/comfortable.png) |
+
+### Theme
+
+There are a few built in themes to configure your widget to look a specific way. Interesting in adding a theme? Create a pull request and add your theme in `scss/themes/yourtheme.scss`. Below are the types of themes available:
+![Themes](readme-screenshots/themes.png)
