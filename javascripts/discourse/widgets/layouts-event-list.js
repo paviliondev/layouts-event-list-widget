@@ -37,7 +37,7 @@ export default layouts.createLayoutsWidget("event-list", {
 
     if (events == null || events == undefined) return;
 
-    console.log(events); // TODO remove for production
+    // console.log(events); // ! Remove for Production
 
     const eventListItems = [];
     const eventList = [];
@@ -87,10 +87,8 @@ createWidget("layouts-event-link", {
   getCurrentDayEvent(event) {
     const currentDate = new Date().toISOString().substr(0, 10);
     const eventDateOnly = event.starts_at.substr(0, 10);
-    console.log(`Current: ${currentDate}, Event: ${eventDateOnly}`);
 
     if (eventDateOnly == currentDate) {
-      console.log(true);
       this.tagName = "li.l-event-item.l-event-item-highlighted";
     }
 

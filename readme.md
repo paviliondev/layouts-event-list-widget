@@ -4,6 +4,8 @@
 
 The Event List Widget allows you to display upcoming events in a sidebar using Pavilion's [Custom Layouts Plugin](https://meta.discourse.org/t/custom-layouts-plugin/55208). See the [installation guide](https://thepavilion.io/t/installation-and-setup/3200) to learn how to install and administer this widget.
 
+![Banner Image](readme-screenshots/header.png)
+
 ## Info &amp; Links
 
 | Title                 | Link                                                                                   |
