@@ -1,5 +1,12 @@
 .layouts-event-list {
     padding: 0;
+
+    .l-event-none {
+        padding: 0 1rem;
+        padding-bottom: 1rem;
+        margin: 0 auto;
+        color: lightgray;
+    }
     
     a.l-event-header {
         display: block;

@@ -8,7 +8,6 @@ const { iconHTML } = require("discourse-common/lib/icon-library");
 let layouts;
 
 // Import layouts plugin with safegaurd for when widget exists without plugin:
-// TODO: Add check for discourse-calendar plugin?
 try {
   layouts = requirejs(
     "discourse/plugins/discourse-layouts/discourse/lib/layouts"
@@ -54,6 +53,11 @@ export default layouts.createLayoutsWidget("event-list", {
       )
     );
 
+    if (events.length == 0) {
+      eventList.push(h("p.l-event-none", "No upcoming events scheduled"));
+      return eventList;
+    }
+
     // sort event in ascending from start date
     const sortedEvent = events.sort(compareValues("starts_at", "asc"));
 
@@ -65,7 +69,6 @@ export default layouts.createLayoutsWidget("event-list", {
     });
 
     eventList.push(h("ul.l-event-items", eventListItems));
-
     return eventList;
   },
 });
@@ -84,8 +87,10 @@ createWidget("layouts-event-link", {
   getCurrentDayEvent(event) {
     const currentDate = new Date().toISOString().substr(0, 10);
     const eventDateOnly = event.starts_at.substr(0, 10);
+    console.log(`Current: ${currentDate}, Event: ${eventDateOnly}`);
 
     if (eventDateOnly == currentDate) {
+      console.log(true);
       this.tagName = "li.l-event-item.l-event-item-highlighted";
     }
 

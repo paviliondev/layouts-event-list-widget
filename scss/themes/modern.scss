@@ -19,7 +19,6 @@
             margin: 0.8rem;
             padding: 0.8rem;
             @if $highlight_today == 'true' {
-
                 &-highlighted {
                     background: var(--highlight-low);
                     box-shadow: none;
