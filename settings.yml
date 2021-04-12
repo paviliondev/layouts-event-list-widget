@@ -39,9 +39,3 @@ theme:
   default: "Default"
   description:
     en: "Select the layout's theme style"
-svg_icons:
-  default: "calendar|check|star|times|question"
-  type: "list"
-  list_type: "compact"
-  description:
-    en: "The required SVG icons the widget needs to display"

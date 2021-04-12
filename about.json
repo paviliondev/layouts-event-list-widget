@@ -8,5 +8,14 @@
   "assets": {
   },
   "color_schemes": {
+  },
+  "modifiers": {
+    "svg_icons": [
+      "calendar",
+      "check",
+      "star",
+      "times",
+      "question"
+    ]
   }
 }
