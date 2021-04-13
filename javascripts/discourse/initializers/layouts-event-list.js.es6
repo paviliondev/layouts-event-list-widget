@@ -3,7 +3,8 @@ import { ajax } from "discourse/lib/ajax";
 export default {
   name: "layouts-event-list",
 
-  initialize() {
+  initialize(container) {
+    const siteSettings = container.lookup("site-settings:main");
     let layouts;
     let layoutsError;
 
@@ -17,7 +18,7 @@ export default {
       console.warn(layoutsError);
     }
 
-    if (layoutsError) return;
+    if (layoutsError || !siteSettings.calendar_enabled) return;
 
     ajax(`/discourse-post-event/events.json`).then((eventList) => {
       const events = eventList.events;
