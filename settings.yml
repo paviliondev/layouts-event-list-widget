@@ -36,6 +36,7 @@ theme:
     - "Minimal"
     - "Detached"
     - "Colorful"
+    - "Unicorn"
   default: "Default"
   description:
     en: "Select the layout's theme style"

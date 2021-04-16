@@ -1,0 +1,52 @@
+@if $theme == 'Unicorn' {
+    @keyframes flyIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.5);
+      
+        }
+        100% {
+            transform: scale(1) translateY(1.5rem);
+            opacity: 1;        
+        }
+      }
+    .layouts-event-list {
+        background-color: #f3f5f9;
+        border-radius: 0.375rem;
+        border-color: transparent;
+
+        a.l-event-header {
+            font-weight: 400;
+            padding-left: 1rem;
+            color: var(--tertiary);
+        }
+
+        .l-event-items {
+            padding: 0 1rem;
+        }
+        .l-event-item-title {
+            font-weight: 100;
+            margin-bottom: 0;
+        }
+        .l-event-details {
+            text-transform: uppercase;
+            svg, p {
+                font-size: 0.8rem;
+            }
+        }
+        .l-event-item {
+            border-radius: 0.375rem;
+            &:hover {
+                transform: scale(1.05);
+                background: #f3f5f9;
+                background: white;
+                box-shadow: 0px 0px 21px rgba(0,0,0,0.1);
+            }
+        }
+        .l-event-invitees {
+            background: #f3f5f9;
+            padding: 0.25rem;
+            border-radius: 0.375rem;
+        }
+    }
+}
