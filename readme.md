@@ -46,5 +46,5 @@ You can configure how much room the widget takes in the layout by setting the st
 
 ### 🖌️ Theme
 
-There are a few built in themes to configure your widget to look a specific way. Interesting in adding a theme? Create a pull request and add your theme in `scss/themes/yourtheme.scss`. Below are the types of themes available:
+There are a few built in themes to configure your widget to look a specific way. Interested in adding a theme? Create a pull request and add your theme in `scss/themes/yourtheme.scss`. Below are the types of themes available:
 ![Themes](readme-screenshots/themes.png)
