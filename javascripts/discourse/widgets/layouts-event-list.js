@@ -46,7 +46,7 @@ export default layouts.createLayoutsWidget("event-list", {
         "a.l-event-header",
         {
           attributes: {
-            href: "upcoming-events",
+            href: "/upcoming-events",
           },
         },
         "Upcoming Events"
@@ -99,7 +99,6 @@ createWidget("layouts-event-link", {
     const formattedDate = new Date(event.starts_at);
     const dateInfo = h("p.l-event-date", longDate(formattedDate));
     this.getCurrentDayEvent(event);
-    // TODO how to make calendar icon appear without adding svg icon subset to settings?
     const html = h("div.l-event-details", [iconNode("calendar"), dateInfo]);
 
     return html;
