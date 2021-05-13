@@ -37,8 +37,6 @@ export default layouts.createLayoutsWidget("event-list", {
 
     if (events == null || events == undefined) return;
 
-    // console.log(events); // ! Remove for Production
-
     const eventListItems = [];
     const eventList = [];
     eventList.push(
@@ -49,7 +47,7 @@ export default layouts.createLayoutsWidget("event-list", {
             href: "/upcoming-events",
           },
         },
-        "Upcoming Events"
+        I18n.t(themePrefix("header_title"))
       )
     );
 
