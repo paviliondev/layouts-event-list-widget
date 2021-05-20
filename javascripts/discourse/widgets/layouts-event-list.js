@@ -52,7 +52,7 @@ export default layouts.createLayoutsWidget("event-list", {
     );
 
     if (events.length == 0) {
-      eventList.push(h("p.l-event-none", "No upcoming events scheduled"));
+      eventList.push(h("p.l-event-none", I18n.t(themePrefix("no_events"))));
       return eventList;
     }
 
