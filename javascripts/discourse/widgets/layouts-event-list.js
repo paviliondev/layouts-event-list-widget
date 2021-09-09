@@ -125,6 +125,7 @@ createWidget("layouts-event-link", {
       const eventInviteeAvatar = h("img.l-event-invitee-avatar", {
         attributes: {
           src: invitee.user.avatar_template.replace("{size}", "40"),
+          data-user-card: invitee.user.username,
         },
       });
 
