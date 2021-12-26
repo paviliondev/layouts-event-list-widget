@@ -20,7 +20,10 @@ export default {
 
     if (layoutsError || !siteSettings.calendar_enabled) return;
 
-    ajax(`/discourse-post-event/events.json`).then((eventList) => {
+    const now = new Date();
+    ajax(
+      `/discourse-post-event/events.json?after=${now.toISOString()}`
+    ).then((eventList) => {
       const events = eventList.events;
       const props = {
         events,
