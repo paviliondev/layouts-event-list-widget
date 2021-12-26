@@ -1,4 +1,3 @@
-import { ajax } from "discourse/lib/ajax";
 
 export default {
   name: "layouts-event-list",
@@ -20,15 +19,6 @@ export default {
 
     if (layoutsError || !siteSettings.calendar_enabled) return;
 
-    const now = new Date();
-    ajax(
-      `/discourse-post-event/events.json?after=${now.toISOString()}`
-    ).then((eventList) => {
-      const events = eventList.events;
-      const props = {
-        events,
-      };
-      layouts.addSidebarProps(props);
-    });
+    layouts.addSidebarProps({});
   },
 };

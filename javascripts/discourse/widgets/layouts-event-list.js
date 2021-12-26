@@ -4,6 +4,7 @@ import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 const { iconNode } = require("discourse-common/lib/icon-library");
 const { iconHTML } = require("discourse-common/lib/icon-library");
+import { ajax } from "discourse/lib/ajax";
 
 let layouts;
 
@@ -32,8 +33,38 @@ function htmlDecode(input) {
 }
 
 export default layouts.createLayoutsWidget("event-list", {
+
+  defaultState(attrs) {
+    return {
+      categoryId: false, // Is not set to make a turn by didRenderWidget
+      events    : [],
+    };
+  },
+
+  didRenderWidget() {
+    var self = this;
+    const { attrs }    = this;
+    const { category } = attrs;
+    const categoryId   = category?.id || null;
+
+    if (
+      category === false
+      || categoryId !== this.state.categoryId
+    ) {
+      const now           = new Date();
+      const categoryParam = category?.id ? `&category_id=${category.id}&include_subcategories=true` : '';
+      const eventQuery    = `/discourse-post-event/events.json?after=${now.toISOString()}${categoryParam}`;
+
+      ajax(eventQuery).then((eventList) => {
+        self.state.events = eventList.events;
+        self.state.categoryId = category?.id || null;
+        self.scheduleRerender();
+      });
+    }
+  },
+
   html(attrs) {
-    const { events } = attrs;
+    const { events } = this.state;
 
     if (events == null || events == undefined) return;
 
