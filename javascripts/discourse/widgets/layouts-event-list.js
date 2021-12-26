@@ -76,7 +76,8 @@ createWidget("layouts-event-link", {
   buildKey: (attrs) => `layouts-event-link-${attrs.id}`,
 
   getEventTitle(event) {
-    const decodedEventName = htmlDecode(event.name); // needed for html entities in array
+    const eventName = event.name || event.post?.topic?.title;
+    const decodedEventName = htmlDecode(eventName); // needed for html entities in array
 
     const html = h("h3.l-event-item-title", decodedEventName);
     return html;
