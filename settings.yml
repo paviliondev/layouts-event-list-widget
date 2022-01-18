@@ -11,9 +11,9 @@ max_events:
   type: integer
   default: 3
   min: 1
-  max: 10
+  max: 50
   description:
-    en: "Set the maximum number of events to appear in the layout"
+    en: "Set the maximum number of events to appear in the layout. Consider adjusting this value to lower if facing performance issues."
 highlight_today:
   type: bool
   default: true
