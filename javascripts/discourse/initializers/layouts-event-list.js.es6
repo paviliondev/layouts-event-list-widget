@@ -21,7 +21,15 @@ export default {
     if (layoutsError || !siteSettings.calendar_enabled) return;
 
     ajax(`/discourse-post-event/events.json`).then((eventList) => {
-      const events = eventList.events;
+      let events = eventList.events;
+
+      // See further https://discourse.pluginmanager.org/t/580
+      if (events && events.length) {
+        events = events.filter((event) => {
+          return (new Date(event.starts_at)).getTime() > Date.now();
+        });
+      }
+
       const props = {
         events,
       };
